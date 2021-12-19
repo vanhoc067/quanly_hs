@@ -13,6 +13,7 @@ from quanly_hs.models import UserRole
 def home():
     return render_template('index.html')
 
+
 @app.route('/register', methods=['get', 'post'])
 def register():
     err_msg = ''
@@ -44,7 +45,7 @@ def register():
     return render_template('register.html', err_msg=err_msg)
 
 
-@app.route('/user-login', methods=['get', 'post'])
+@app.route('/user-login', methods=['get','post'])
 def user_signin():
     err_msg = ''
     if request.method.__eq__('POST'):

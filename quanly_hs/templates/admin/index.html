@@ -2,7 +2,13 @@
 
 {% block body %}
 {% if current_user.is_authenticated %}
-<h1>WELCOME <span class="text-danger">{{ current_user.name }}</span> TO ADMINISTRATION PAGE!!!</h1>
+<h1 class="text-danger text-center">TRANG CHỦ QUẢN TRỊ HỌC SINH</h1>
+<h4 class="text-center"> Quản trị viên: <span class="text-info">{{ current_user.name }}</span></h4>
+
+<div class="jumbotron" style="position:fixed; bottom:-20px; left:5px; right:5px">
+  <h1>E-education Aministrator</h1>
+  <p>Nhóm QLHS&#174; 2021</p>
+</div>
 {% else %}
 <h1 class="text-center text-danger">ĐĂNG NHẬP QUẢN TRỊ</h1>
 <form method="post" action="{{ url_for('admin_signin') }}">

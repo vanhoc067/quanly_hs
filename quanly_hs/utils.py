@@ -1,6 +1,6 @@
 import json, os
 from quanly_hs import app, db
-import  hashlib
+import hashlib
 from quanly_hs.models import User, UserRole
 
 
