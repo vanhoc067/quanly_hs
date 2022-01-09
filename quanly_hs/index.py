@@ -9,7 +9,7 @@ from quanly_hs.models import UserRole
 
 
 
-@app.route('/')
+@app.route('/home')
 def home():
     return render_template('index.html')
 
@@ -36,7 +36,7 @@ def register():
                            username=username, email=email,
                            avatar=avatar)
 
-            return redirect(url_for('home'))
+            return redirect(url_for('user_signin'))
         except Exception as ex:
             err_msg = 'Đã xãy ra lỗi: ' + str(ex)
         else:
@@ -45,20 +45,21 @@ def register():
     return render_template('register.html', err_msg=err_msg)
 
 
-@app.route('/user-login', methods=['get','post'])
+@app.route('/', methods=['get','post'])
 def user_signin():
     err_msg = ''
     if request.method.__eq__('POST'):
         username = request.form.get('username')
         password = request.form.get('password')
+        userrole = request.form.get('sellist1')
 
-        user = utils.check_login(username=username, password=password)
+        user = utils.check_login(username=username, password=password, userrole=userrole)
         if user:
             login_user(user=user)
 
-            return redirect(url_for(request.args.get('next', 'home')))
+            return redirect(url_for('home'))
         else:
-            err_msg = 'Tên dăng nhập hoặc mật khẩu không chính xát!!'
+            err_msg = 'Thông tin đăng nhập không chính xát!!'
 
     return render_template('login.html', err_msg=err_msg)
 
@@ -70,7 +71,7 @@ def admin_signin():
 
     user = utils.check_login(username=username,
                             password=password,
-                            role=UserRole.admin)
+                            userrole=UserRole.admin)
     if user:
         login_user(user=user)
 
@@ -86,6 +87,10 @@ def user_load(user_id):
 def user_signout():
     logout_user()
     return redirect(url_for('user_signin'))
+
+@app.route('/tiep_nhan_hoc_sinh')
+def tiepnhanhocsinh():
+    return render_template('tiepnhanhocsinh.html')
 
 
 if __name__ == '__main__':

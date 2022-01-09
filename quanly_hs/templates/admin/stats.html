@@ -1,0 +1,269 @@
+{% extends 'admin/base.html' %}
+
+{% block body %}
+<h1 class="text-center text-info">THỐNG KÊ KẾT QUẢ HỌC TẬP CỦA HỌC SINH</h1>
+<br><br>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <table class="table text-center">
+            <tr>
+                <th colspan="2">Môn: Toán</th>
+                <th colspan="2">Học kì I</th>
+            </tr>
+            <tr>
+                <th>Lớp</th>
+                <th>Sĩ số</th>
+                <th>Số lượng đạt</th>
+                <th>Tỉ lệ</th>
+            </tr>
+            {% for s in stats1 %}
+            <tr>
+                <td>{{ s[0] }}</td>
+                <td>{{ s[1] }}</td>
+                <td>{{ s[2] }}</td>
+                <td> {{ "{:,.1f}".format(s[3]) }}%</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-6 col-xs-12">
+          <canvas id="myScoreChart1"></canvas>
+    </div>
+</div>
+
+<br><br>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <table class="table text-center">
+            <tr>
+                <th colspan="2">Môn: Văn</th>
+                <th colspan="2">Học kì I</th>
+            </tr>
+            <tr>
+                <th>Lớp</th>
+                <th>Sĩ số</th>
+                <th>Số lượng đạt</th>
+                <th>Tỉ lệ</th>
+            </tr>
+            {% for s in stats2 %}
+            <tr>
+                <td>{{ s[0] }}</td>
+                <td>{{ s[1] }}</td>
+                <td>{{ s[2] }}</td>
+                <td> {{ "{:,.1f}".format(s[3]) }}%</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-6 col-xs-12">
+          <canvas id="myScoreChart2"></canvas>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let labels1 = [], labels2 = []
+    let data1 = [], data2 = []
+    let colors1 = [], colors2 = []
+    let borderColors1 = [], borderColors2 = []
+    let r, g, b;
+
+    {% for s in stats1 %}
+            labels1.push('{{ s[0] }}')
+            data1.push({{ s[3] }})
+
+            r = Math.random()*255
+            g = Math.random()*255
+            b = Math.random()*255
+
+            colors1.push(`rgba(${r}, ${g}, ${b}, 0.2)`)
+            borderColors1.push(`rgba(${r}, ${g}, ${b}, 1)`)
+    {% endfor %}
+
+    {% for s in stats2 %}
+            labels2.push('{{ s[0] }}')
+            data2.push({{ s[3] }})
+
+            r = Math.random()*255
+            g = Math.random()*255
+            b = Math.random()*255
+
+            colors2.push(`rgba(${r}, ${g}, ${b}, 0.2)`)
+            borderColors2.push(`rgba(${r}, ${g}, ${b}, 1)`)
+    {% endfor %}
+
+    window.onload = function() {
+        const ctx = document.getElementById('myScoreChart1').getContext('2d');
+        displayChart(ctx, 'bar', labels1, data1, colors1, borderColors1)
+
+        const ctx2 = document.getElementById('myScoreChart2').getContext('2d');
+        displayChart(ctx2, 'bar', labels2, data2, colors2, borderColors2)
+    }
+
+    function displayChart(ctx, typeChart, labels, data, colors, borderColors) {
+        const myChart = new Chart(ctx, {
+            type: typeChart,
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Thống kê kết quả học tập',
+                    data: data,
+                    backgroundColor: colors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+
+
+
+
+<!--<div class="row">-->
+<!--    <div class="col-md-6 col-xs-12">-->
+<!--        <table class="table">-->
+<!--            <tr>-->
+<!--                <th>Ma san pham</th>-->
+<!--                <th>Ten san pham</th>-->
+<!--                <th>Tong doanh thu</th>-->
+<!--            </tr>-->
+<!--            {% for s in stats %}-->
+<!--            <tr>-->
+<!--                <td>{{ s[0] }}</td>-->
+<!--                <td>{{ s[1] }}</td>-->
+<!--                <td>-->
+<!--                    {% if s[2] %}-->
+<!--                    {{ "{:,.1f}".format(s[2]) }} VND-->
+<!--                    {% else %}-->
+<!--                    0 VND-->
+<!--                    {% endif %}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            {% endfor %}-->
+<!--        </table>-->
+<!--    </div>-->
+<!--    <div class="col-md-6 col-xs-12">-->
+<!--        <form action="/admin/statsview/">-->
+<!--            <div class="form-group">-->
+<!--                <input type="text" class="form-control" name="kw" placeholder="Nhap tu khoa..." />-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <input type="date" class="form-control" name="from_date" />-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <input type="date" class="form-control" name="to_date" />-->
+<!--            </div>-->
+<!--            <input type="submit" value="Thong ke" class="btn btn-success" />-->
+<!--        </form>-->
+
+<!--        <canvas id="myProductChart"></canvas>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+<!--    <div class="col-md-6 col-xs-12">-->
+<!--        <table class="table">-->
+<!--            <tr>-->
+<!--                <th>Thang</th>-->
+<!--                <th>Doanh thu</th>-->
+<!--            </tr>-->
+<!--            {% for s in month_stats %}-->
+<!--            <tr>-->
+<!--                <td>{{ s[0] }}</td>-->
+<!--                <td>-->
+<!--                    {% if s[1] %}-->
+<!--                    {{ "{:,.1f}".format(s[1]) }} VND-->
+<!--                    {% else %}-->
+<!--                    0 VND-->
+<!--                    {% endif %}-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            {% endfor %}-->
+<!--        </table>-->
+<!--    </div>-->
+<!--    <div class="col-md-6 col-xs-12">-->
+<!--        <canvas id="myProductMonthChart"></canvas>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+<!--<script>-->
+<!--    let labels = [], labels2 = []-->
+<!--    let data = [], data2 = []-->
+<!--    let colors = [], colors2 = []-->
+<!--    let borderColors = [], borderColors2 = []-->
+<!--    let r, g, b;-->
+
+<!--    {% for s in stats %}-->
+<!--        {% if s[2] %}-->
+<!--            labels.push('{{ s[1] }}')-->
+<!--            data.push({{ s[2] }})-->
+
+<!--            r = Math.random()*255-->
+<!--            g = Math.random()*255-->
+<!--            b = Math.random()*255-->
+
+<!--            colors.push(`rgba(${r}, ${g}, ${b}, 0.2)`)-->
+<!--            borderColors.push(`rgba(${r}, ${g}, ${b}, 1)`)-->
+<!--        {% endif %}-->
+<!--    {% endfor %}-->
+
+<!--    {% for s in month_stats %}-->
+<!--        {% if s[1] %}-->
+<!--            labels2.push({{ s[0] }})-->
+<!--            data2.push({{ s[1] }})-->
+
+<!--            r = Math.random()*255-->
+<!--            g = Math.random()*255-->
+<!--            b = Math.random()*255-->
+
+<!--            colors2.push(`rgba(${r}, ${g}, ${b}, 0.2)`)-->
+<!--            borderColors2.push(`rgba(${r}, ${g}, ${b}, 1)`)-->
+<!--        {% endif %}-->
+<!--    {% endfor %}-->
+
+<!--    window.onload = function() {-->
+<!--        const ctx = document.getElementById('myProductChart').getContext('2d');-->
+<!--        displayChart(ctx, 'bar', labels, data, colors, borderColors)-->
+
+<!--        const ctx2 = document.getElementById('myProductMonthChart').getContext('2d');-->
+<!--        displayChart(ctx2, 'line', labels2, data2, colors2, borderColors2)-->
+<!--    }-->
+
+<!--    function displayChart(ctx, typeChart, labels, data, colors, borderColors) {-->
+<!--        const myChart = new Chart(ctx, {-->
+<!--            type: typeChart,-->
+<!--            data: {-->
+<!--                labels: labels,-->
+<!--                datasets: [{-->
+<!--                    label: 'Thong ke doanh thu',-->
+<!--                    data: data,-->
+<!--                    backgroundColor: colors,-->
+<!--                    borderColor: borderColors,-->
+<!--                    borderWidth: 1-->
+<!--                }]-->
+<!--            },-->
+<!--            options: {-->
+<!--                scales: {-->
+<!--                    y: {-->
+<!--                        beginAtZero: true-->
+<!--                    }-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+
+<br><br>
+<div class="jumbotron" style=" width:100%; position:relative; bottom:-20px; left:10px; right:10px" >
+  <h1>E-education Aministrator</h1>
+  <p>Nhóm QLHS&#174; 2021</p>
+</div>
+{% endblock %}

@@ -13,14 +13,21 @@
 
 <form method="post">
     <div class="form-group">
-        <label for="username">Username</label>
+      <select class="form-control" id="sel1" name="sellist1">
+        <option value="user" >Học sinh</option>
+        <option value="teacher">Giáo viên</option>
+        <option value="admin">Quản trị viên</option>
+      </select>
+    </div>
+    <div class="form-group">
+        <label for="username">Tên đăng nhập</label>
         <input type="text" class="form-control" id="username" name="username" required />
     </div>
     <div class="form-group">
-        <label for="pass">Mat khau</label>
+        <label for="pass">Mật khẩu</label>
         <input type="password" class="form-control" id="pass" name="password" />
     </div>
-    <input type="submit" value="Dang nhap" class="btn btn-danger" />
+    <input type="submit" value="Đăng nhập" class="btn btn-danger" />
 </form>
 <br><br>
 {% endblock %}

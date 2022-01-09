@@ -14,6 +14,7 @@ class baseModel(db.Model):
 class UserRole(UserEnum):
     admin = 1
     user = 2
+    teacher = 3
 
 
 class User(baseModel, UserMixin):
@@ -68,6 +69,7 @@ class Subject(baseModel):
         return self.name
 
 
+
 class Score(db.Model):
     class_id = Column(Integer, ForeignKey(Class.id), nullable=False, primary_key=True)
     subject_id = Column(Integer, ForeignKey(Subject.id), nullable=False, primary_key=True)
@@ -92,8 +94,9 @@ class Score(db.Model):
 #     score_1_period = Column(Float, nullable=False)
 #     semester_exam_score = Column(Float, nullable=False)
 #     # score_detail = relationship(Score, lazy='score_detail', backref=backref('score', lazy=True))
-# #
+#(score_15_minutes_1+score_15_minutes_2+score_1_period*2+semester_exam_score*3)/7
 # #
 
 if __name__ == '__main__':
     db.create_all()
+

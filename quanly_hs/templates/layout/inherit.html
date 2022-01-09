@@ -1,0 +1,108 @@
+{% extends 'layout/base.html' %}
+
+{% block inherit %}
+ <div class="row">
+    <div class="col-md-2 col-xs-12">
+        {% block menu %}
+            <br><br>
+            {% if current_user.is_authenticated and current_user.user_role == current_user.user_role.user %}
+
+              <div class="container bg-primary text-white" style="border-radius: 15px">
+                  <h3 style="padding-top:15px; padding-bottom:15px">
+                    <a class="text-white"  href="{{ url_for('home') }}">
+                        <i class="fas fa-users-cog"></i>
+                        Tổng quan
+                    </a>
+                  </h3>
+                 <p class="text-warning" style="margin-bottom:-5px">Tiện ích sinh viên:</p>
+                <ul class="nav flex-column">
+
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="#"> &#9751; Kết quả đóng học phí</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="#"> &#9820; Đăng kí ngoại trú</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="#"> &#10002;	Hồ sơ sinh viên</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="#"> &#10066; Đánh giá hoạt động giảng dạy</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="#"> &#9783; Xem Thời khóa biểu, lịch thi, điểm thi</a>
+                  </li>
+                </ul>
+              </div>
+            {% elif current_user.is_authenticated and current_user.user_role == current_user.user_role.admin %}
+              <div class="container bg-primary text-white" style="border-radius: 15px">
+                <h3 style="padding-top:15px; padding-bottom:15px">
+                    <a class="text-white"  href="{{ url_for('home') }}">
+                        <i class="fas fa-users-cog"></i>
+                        Admin
+                    </a>
+                </h3>
+                 <p class="text-warning " style="margin-bottom:-5px">Công cụ quản trị: </p>
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('tiepnhanhocsinh') }}">
+                        <i class="fas fa-user-edit"></i>
+                        Tiếp nhận học sinh
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="far fa-address-card"></i>
+                        Lập danh sách lớp
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="far fa-chart-bar"></i>
+                        Xem thống kê báo cáo kết quả học tập
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="fas fa-pencil-ruler"></i>
+                        Thay đổi quy định
+                    </a>
+                  </li>
+                </ul>
+
+              </div>
+            {% else %}
+              <div class="container bg-primary text-white" style="border-radius: 15px">
+                <h3 style="padding-top:15px; padding-bottom:15px">
+                    <a class="text-white"  href="{{ url_for('home') }}">
+                        <i class="fas fa-users-cog"></i>
+                        Tổng quan
+                    </a>
+                </h3>
+                 <p class="text-warning " style="margin-bottom:-5px">Quản lí điểm học sinh: </p>
+                <ul class="nav flex-column">
+
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="fas fa-file-import"></i>
+                        Nhập điểm
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="fas fa-file-export"></i>
+                        Xuất điểm
+                    </a>
+                  </li>
+                </ul>
+
+              </div>
+            {% endif %}
+            <br><br>
+        {% endblock %}
+    </div>
+    <div class="col-md-10 col-xs-12">
+        {% block mycontent %} {% endblock %}
+    </div>
+</div>
+{% endblock %}

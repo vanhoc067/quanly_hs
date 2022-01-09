@@ -1,7 +1,7 @@
 from flask_admin.contrib.sqla import ModelView
 from quanly_hs.models import Student, Class, UserRole, Subject, Score
 from quanly_hs import app, db, utils
-from flask_admin import Admin, BaseView, expose
+from flask_admin import Admin, BaseView, expose, AdminIndexView
 from flask_babelex import Babel
 from flask_login import current_user, logout_user
 from flask import redirect
@@ -10,7 +10,6 @@ from flask import redirect
 class AuthenticatedModelView(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated and current_user.user_role == UserRole.admin
-
 
 
 class View(AuthenticatedModelView):
@@ -84,15 +83,35 @@ class LogoutView(BaseView):
         return current_user.is_authenticated
 
 
+class MyAdminIndex(AdminIndexView):
+    @expose('/')
+    def index(self):
+
+        return self.render('admin/index.html', stats = utils.class_stats())
 
 
+class StatsView(BaseView):
+    @expose('/')
 
-admin = Admin(app=app, name='QUẢN TRỊ HỌC SINH', template_mode='bootstrap4')
+    def index(self):
+
+        return self.render('admin/stats.html',
+                           stats1=utils.Score_stats_toan(),
+                           stats2=utils.Score_stats_van())
+
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.admin
+
+admin = Admin(app=app, name='QUẢN TRỊ HỌC SINH',
+              template_mode='bootstrap4',
+              index_view=MyAdminIndex())
 admin.add_view(StudentView(Student, db.session, name='Danh sách HS'))
 admin.add_view(classView(Class, db.session, name='Danh sách lớp'))
 admin.add_view(subjectView(Subject, db.session, name='Danh sách môn học'))
 admin.add_view(ScoreView(Score, db.session, name='Bảng điểm'))
+admin.add_view(StatsView(name='Thống kê'))
 admin.add_view(LogoutView(name='Đăng xuất'))
+
 
 
 

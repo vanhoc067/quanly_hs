@@ -1,0 +1,30 @@
+* {
+    font-family: Tahoma;
+}
+
+h1.subject {
+    text-align:center;
+}
+
+.container {
+    width: 95%;
+    margin: 0 auto;
+}
+.flex {
+    display: flex;
+    color: blue;
+    margin-top: 20px;
+}
+div.flex > div{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
+    box-shadow: 5px 10px 8px #888888;
+}
+table.score {
+    margin-top: 10px;
+    text-align: center;
+    border-collapse: collapse;
+    width: 90%;
+}

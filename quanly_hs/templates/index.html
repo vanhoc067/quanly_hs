@@ -1,9 +1,102 @@
-{% extends 'layout/base.html' %}
+{% extends 'layout/inherit.html' %}
 
 {% block title %}Trang chu{% endblock %}
 
-{% block content %}
-<h1 class="text-center text-info" style="padding:10px">QUẢN LÝ HỌC SINH</h1>
 
+{% block mycontent %}
+{% if current_user.is_authenticated and current_user.user_role == current_user.user_role.user %}
+    <h2 class="text-primary" style="padding-top:20px">Tổng quan</h2>
+    <p class="text-muted font-weight-normal mb-0 w-100 text-truncate">Tổng hợp nhanh các thông tin của học sinh</p>
+
+    <div class="flex">
+        <div>
+             <h1>6.67</h1>
+            <p class="text-muted font-weight-normal mb-0 w-100 text-truncate">điểm trung bình(hệ 10)</p>
+        </div>
+        <div>
+             <h1>2.67</h1>
+            <p class="text-muted font-weight-normal mb-0 w-100 text-truncate">Điểm trung bình(hệ 4)</p>
+        </div>
+    </div>
+    <h4 style="margin-top:50px"> Điểm trung bình các học kì</h4>
+    <table border="1" class="score">
+          <tr>
+            <th>Học kì</th>
+            <th>Môn học</th>
+            <th>ĐTB Hệ 10</th>
+            <th>ĐTB Hệ 4</th>
+          </tr>
+          <tr>
+            <td rowspan="2">Học kì 1</td>
+            <td>Toán</td>
+            <td>8.00</td>
+            <td>3.20</td>
+          </tr>
+            <tr>
+                <td>Văn</td>
+                <td>7.50</td>
+                <td>3.00</td>
+              </tr>
+            <tr>
+                <td rowspan="2">Học kì 2</td>
+                <td>Toán</td>
+                <td>6.58</td>
+                <td>2.63</td>
+              </tr>
+            <tr>
+                <td>Văn</td>
+                <td>5.75</td>
+                <td>2.30</td>
+              </tr>
+    </table>
+<br><br>
+{% elif current_user.is_authenticated and current_user.user_role == current_user.user_role.admin %}
+    <div class="shadow-lg p-3 mb-5 bg-white rounded"  style=" margin-top: 20px; width: 90%">
+        <h3 class="text-success">Quản trị viên: {{ current_user.name }}</h3>
+        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Chức vụ quản trị: </h6>
+    </div>
+    <h5 class="text-primary" style="margin-top:50px">Các hoạt động quản trị gần đây:</h5>
+    <table border="0" class="score text-info">
+          <tr>
+            <th style="width:10%">STT</th>
+            <th style="width:30%">Tác vụ</th>
+            <th>Mô tả</th>
+          </tr>
+          <tr>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+          </tr>
+         <tr>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+          </tr>
+    </table>
+{% else %}
+    <div class="shadow-lg p-3 mb-5 bg-white rounded"  style=" margin-top: 20px; width: 90%">
+        <h3 class="text-success">Giáo viên: {{ current_user.name }}</h3>
+        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Môn học:  </h6>
+    </div>
+    <h5 class="text-primary" style="margin-top:50px">Các hoạt động gần đây:</h5>
+    <table border="0" class="score text-info">
+          <tr>
+            <th style="width:10%">STT</th>
+            <th style="width:30%">Tác vụ</th>
+            <th>Mô tả</th>
+          </tr>
+          <tr>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+          </tr>
+         <tr>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+          </tr>
+    </table>
+    <br><br>
+{% endif %}
 
 {% endblock %}

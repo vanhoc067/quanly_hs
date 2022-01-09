@@ -3,7 +3,7 @@
      <a class="navbar-brand" href="#">
          <img src="{{url_for('static', filename='images/logo.png')}}" class="rounded-circle" alt="logo" style="width:40px">
      </a>
-     <a class="navbar-brand" href="#">E-education Website</a>
+     <a class="navbar-brand" href="{{ url_for('home') }}">E-education Website</a>
 
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -15,24 +15,39 @@
     <ul class="navbar-nav">
       {% if current_user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link text-danger" href="{{ url_for('home') }}">
+        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="{{ url_for('home') }}">
             {% if current_user.avatar %}
               <img src="{{ current_user.avatar }}" class="rounded-circle" width="30" alt="{{ current_user.name }}" />
             {% else %}
               <img src="{{ url_for('static', filename='images/default.jpg') }}" class="rounded-circle" width="30" alt="{{ current_user.name }}" />
             {% endif %}
-            {{ current_user.username }}
+            Xin chào, {{ current_user.username }}
         </a>
+         <div class="dropdown-menu" style="position:absolute; left:280px">
+         <a class="dropdown-item text-secondary" href="#">
+             <i class="fas fa-user"> </i>
+             Thông tin
+         </a>
+         <a class="dropdown-item text-secondary" href="#">
+             <i class="fas fa-cogs"></i>
+             Thay đổi mật khẩu
+         </a>
+         </a>
+         <a class="dropdown-item text-danger" href="{{ url_for('user_signout') }}">
+             <i class="fas fa-power-off"></i>
+             Đăng xuất
+         </a>
+         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link text-success" href="{{ url_for('user_signout') }}">Đăng xuất</a>
-      </li>
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link text-success" href="{{ url_for('user_signout') }}">Đăng xuất</a>-->
+<!--      </li>-->
       {% else %}
       <li class="nav-item">
-        <a class="nav-link text-danger" href="{{ url_for('register') }}">Đăng kí</a>
-      </li>
-       <li class="nav-item">
         <a class="nav-link text-success" href="{{ url_for('user_signin') }}">Đăng nhập</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-danger" href="{{ url_for('register') }}">Đăng kí</a>
       </li>
        <li class="nav-item">
         <a class="nav-link text-info" href="/admin">Quản trị</a>
