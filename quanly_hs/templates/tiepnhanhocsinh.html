@@ -4,9 +4,57 @@
 
 
 {% block mycontent %}
+<div style="width:80%; margin-left: 50px">
+    <h1 class="text-center text-info " style="padding:10px"  >Tiếp nhận học sinh</h1>
 
-<h1>Tiếp nhận học sinh</h1>
-<!--{% if current_user.is_authenticated %}-->
+    {% if err_msg %}
+    <div class="alert alert-danger">
+        {{ err_msg }}
+    </div>
+    {% endif %}
 
-<!--{% endif %}-->
+    <form method="post" action="{{ url_for('register_student') }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Họ tên</label>
+            <input type="text" class="form-control" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+            <label for="gender">Giới tính: </label>
+            <select name="gender" class="form-select" id="gender" style="width:93%; height:35px" required >
+                <option value="Nam">Nam</option>
+                <option value="Nu">Nữ</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date">Ngày sinh</label>
+            <input type="date" data-date-format="MM-DD-YYYY" class="form-control" id="date" name="date_of_birth" required />
+        </div>
+        <div class="form-group">
+            <label for="address">Địa chỉ</label>
+            <input type="text" class="form-control" id="address" name="address" required />
+        </div>
+        <div class="form-group">
+            <label for="phone">Số điện thoại</label>
+            <input type="number" class="form-control" id="phone" name="phone" />
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" />
+        </div>
+        <div class="form-group">
+            <label for="class">Lớp: </label>
+            <select name="class_id" class="form-select" id="class" style="width:96%; height:35px" required >
+                <option value="1">10A</option>
+                <option value="4">10B</option>
+                <option value="2">11A</option>
+                <option value="5">11B</option>
+                <option value="3">12A</option>
+                <option value="6">12B</option>
+            </select>
+        </div>
+        <input type="submit" value="Thêm" class="btn btn-danger" />
+    </form>
+    <a class="text-primary" href="{{ url_for('dshocsinh') }}">Xem danh sách học sinh...</a>
+</div>
+<br><br>
 {% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'layout/inherit.html' %}
+
+{% block title %}Danh sach hoc sinh{% endblock %}
+
+
+{% block mycontent %}
+<h1 class="text-center text-info" style="width:90%">Danh sách học sinh</h1>
+{% if students %}
+<table border="1" class="score text-info" style="width:90%" id="customers">
+      <tr>
+          <th>Mã HS</th>
+          <th>Tên HS</th>
+          <th>Giới tính</th>
+          <th>Lớp</th>
+          <th>Ngày sinh</th>
+          <th>Địa chỉ</th>
+          <th>Số địa thoại</th>
+          <th>Email</th>
+          <th>Tài khoản</th>
+          <th>Thao tác</th>
+      </tr>
+    {% for s in students %}
+      <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.name }}</td>
+          <td>{{ s.gender }}</td>
+          <td>{{ s.class_id }}</td>
+          <td>{{ s.date_of_birth }}</td>
+          <td>{{ s.address }}</td>
+          <td>{{ s.phone }}</td>
+          <td>{{ s.email }}</td>
+          <td>{{ s.user_id }}</td>
+          <td>
+              <a href="#"><i class="far fa-eye"></i></a> <a href="#"><i class="fas fa-pencil-alt"></i></a> <a href="#"><i class="fas fa-trash"></i></a>
+          </td>
+      </tr>
+    {% endfor %}
+</table>
+<ul class="pagination" style="padding-top:20px">
+    {% for idx in range(1, pages+1) %}
+     <li class="page-item"><a class="page-link" href="{{ url_for('dshocsinh', page=idx) }}">{{ idx }}</a></li>
+    {% endfor %}
+</ul>
+<br><br>
+{% else %}
+<h5 class="text-center text-danger">Không có học sinh nào ở đây!</h5>
+{% endif %}
+{% endblock %}

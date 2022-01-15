@@ -1,0 +1,32 @@
+{% extends 'layout/inherit.html' %}
+
+{% block title %}Danh sach hoc sinh{% endblock %}
+
+
+{% block mycontent %}
+<h1 class="text-center text-info" style="width:90%">Chi tiết lớp học</h1>
+
+<table border="1" class="score text-info " style="width:90%" id="customers">
+      <tr>
+          <th colspan="2" style="width:50%">Lớp</th>
+          <th colspan="3" style="width:50%">Số lượng học sinh</th>
+      </tr>
+      <tr>
+          <th style="width:12%">Mã học sinh</th>
+          <th>Họ tên</th>
+          <th>Giới tính</th>
+          <th>Năm sinh</th>
+          <th>Địa chỉ</th>
+      </tr>
+  {% for s in student %}
+      <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.name }}</td>
+          <td>{{ s.gender }}</td>
+          <td>{{ s.date_of_birth }}</td>
+          <td>{{ s.address }}</td>
+      </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

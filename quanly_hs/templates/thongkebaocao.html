@@ -1,11 +1,14 @@
-{% extends 'admin/base.html' %}
+{% extends 'layout/inherit.html' %}
 
-{% block body %}
-<h1 class="text-center text-info">THỐNG KÊ KẾT QUẢ HỌC TẬP CỦA HỌC SINH</h1>
+{% block title %}Thong ke so luong HS{% endblock %}
+
+
+{% block mycontent %}
+<h1 class="text-center text-info" style="padding-top: 20px">BÁO CÁO TỔNG KẾT MÔN HỌC</h1>
 <br><br>
-<div class="row">
+<div class="row" style="width:90%">
     <div class="col-md-6 col-xs-12">
-        <table class="table text-center">
+        <table class="table text-center" id="customers">
             <tr>
                 <th colspan="2">Môn: Toán</th>
                 <th colspan="2">Học kì I</th>
@@ -32,9 +35,9 @@
 </div>
 
 <br><br>
-<div class="row">
+<div class="row" style="width:90%">
     <div class="col-md-6 col-xs-12">
-        <table class="table text-center">
+        <table class="table text-center" id="customers">
             <tr>
                 <th colspan="2">Môn: Văn</th>
                 <th colspan="2">Học kì I</th>
@@ -123,8 +126,4 @@
     }
 </script>
 <br><br>
-<div class="jumbotron" style=" width:100%; position:relative; bottom:-20px; left:10px; right:10px" >
-  <h1>E-education Aministrator</h1>
-  <p>Nhóm QLHS&#174; 2021</p>
-</div>
 {% endblock %}

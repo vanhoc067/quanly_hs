@@ -1,0 +1,35 @@
+{% extends 'layout/inherit.html' %}
+
+{% block title %}Xuat bang diem{% endblock %}
+
+
+{% block mycontent %}
+<h1 class="text-center text-info" style="width:90%">Bảng điểm môn học</h1>
+{% if infor %}
+<table border="1" class="score text-info" style="width:90%" id="customers">
+       <tr>
+          <th colspan="5" style="text-align:left">Năm học: {{ school_year }}</th>
+      </tr>
+      <tr>
+          <th>STT</th>
+          <th>Họ tên</th>
+          <th>Lớp</th>
+          <th>Điểm TB HK1</th>
+          <th>Điểm TB HK2</th>
+      </tr>
+    {% for i in infor %}
+      <tr>
+          <td>{{ i[0] }}</td>
+          <td>{{ i[1] }}</td>
+          <td>{{ i[2] }}</td>
+          <td>{{ "{:,.1f}".format(i[3]) }}</td>
+          <td>{{ "{:,.1f}".format(i[4]) }}</td>
+      </tr>
+    {% endfor %}
+</table>
+<input type="button" value="In..." class="btn btn-primary" style="margin-top:20px" />
+{% else %}
+<h5 class="text-center text-danger">Không có bảng điểm nào ở đây!</h5>
+{% endif %}
+<br><br>
+{% endblock %}

@@ -51,14 +51,14 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="#">
+                    <a class="nav-link text-white" href="{{ url_for('dslop') }}">
                         <i class="far fa-address-card"></i>
                         Lập danh sách lớp
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="#">
-                        <i class="far fa-chart-bar"></i>
+                    <a class="nav-link text-white" href="{{ url_for('thongkesoluong') }}">
+                        <i class="fas fa-chart-pie"></i>
                         Xem thống kê báo cáo kết quả học tập
                     </a>
                   </li>
@@ -83,13 +83,13 @@
                 <ul class="nav flex-column">
 
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="#">
+                    <a class="nav-link text-white" href="{{ url_for('bangdiem') }}">
                         <i class="fas fa-file-import"></i>
                         Nhập điểm
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="#">
+                    <a class="nav-link text-white" href="{{ url_for('xuatbangdiem') }}">
                         <i class="fas fa-file-export"></i>
                         Xuất điểm
                     </a>

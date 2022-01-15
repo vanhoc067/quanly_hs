@@ -1,0 +1,42 @@
+{% extends 'layout/inherit.html' %}
+
+{% block title %}Chi tiet bang diem{% endblock %}
+
+
+{% block mycontent %}
+<h1 class="text-center text-info" style="width:90%">Chi tiết bảng điểm</h1>
+<table border="1" class="score text-info" style="width:90%" id="customers">
+      <tr>
+          <th colspan="3">Lớp: {{ score_classname }}</th>
+          <th colspan="4">Môn học: {{ score_subjectname }}</th>
+      </tr>
+      <tr>
+          <th colspan="3">Học kì: Học kì I</th>
+          <th colspan="4">Năm học: {{ score_year }}</th>
+      </tr>
+      <tr>
+          <td>STT</td>
+          <td>Họ tên</td>
+          <td>Điểm 15ph 1</td>
+          <td>Điểm 15ph 2</td>
+          <td>Điểm 1 tiết</td>
+          <td>Điểm thi</td>
+          <td>Thao tác</td>
+      </tr>
+    {% for s in score %}
+      <tr>
+          <td>{{ s[0] }}</td>
+          <td>{{ s[1] }}</td>
+          <td>{{ s[2] }}</td>
+          <td>{{ s[3] }}</td>
+          <td>{{ s[4] }}</td>
+          <td>{{ s[5] }}</td>
+          <td>
+             <a href="#"><i class="fas fa-pencil-alt"></i></a> <a href="#"><i class="fas fa-trash"></i></a>
+          </td>
+      </tr>
+    {% endfor %}
+</table>
+<input type="button" value="Thêm" class="btn btn-danger" style="margin-top:20px" />
+<br><br>
+{% endblock %}

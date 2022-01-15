@@ -1,0 +1,32 @@
+{% extends 'layout/inherit.html' %}
+
+{% block title %}Bang diem{% endblock %}
+
+
+{% block mycontent %}
+<h1 class="text-center text-info" style="width:90%">Danh sách bảng điểm theo lớp</h1>
+{% if info %}
+<table border="1" class="score text-info" style="width:90%" id="customers">
+      <tr>
+          <th>Tên Lớp</th>
+          <th>Môn học</th>
+          <th>Học kì</th>
+          <th>Thao tác</th>
+      </tr>
+    {% for i in info %}
+      <tr>
+          <td>{{ i[0] }}</td>
+          <td>{{ i[1] }}</td>
+          <td>{{ i[2] }}</td>
+          <td>
+              <a href="{{ url_for('chitietbangdiem', score_class=i[3], score_subject=i[4], score_classname=i[0], score_subjectname=i[1], score_year=i[5]) }}"><i class="far fa-eye"></i></a> <a href="#"><i class="fas fa-trash"></i></a>
+          </td>
+      </tr>
+    {% endfor %}
+</table>
+<input type="button" value="Thêm" class="btn btn-danger" style="margin-top:20px" />
+<br><br>
+{% else %}
+<h5 class="text-center text-danger">Không có bảng điểm nào ở đây!</h5>
+{% endif %}
+{% endblock %}

@@ -48,8 +48,8 @@ class Student(baseModel):
     __tablename__ = 'student'
     name = Column(String(50), nullable=False)
     gender = Column(Enum('Nam','Nu'), nullable=False)
-    date_of_birth = Column(DateTime)
-    address = Column(String(50), nullable=False)
+    date_of_birth = Column(DateTime, nullable=False)
+    address = Column(String(50))
     phone = Column(Integer)
     email = Column(String(50))
     class_id = Column(Integer, ForeignKey(Class.id), nullable=False)
@@ -85,17 +85,6 @@ class Score(db.Model):
     def __str__(self):
         return self.student.name
 
-# class ScoreDetail(db.Model):
-#     id = Column(Integer, ForeignKey(Score.class_id), nullable=False, primary_key=True)
-#     # score_subject_id = Column(Integer, ForeignKey(Score.subject_id), nullable=False, primary_key=True)
-#     # student_id = Column(Integer, ForeignKey(Student.id), nullable=False, primary_key=True)
-#     score_15_minutes_1 = Column(Float, nullable=False)
-#     score_15_minutes_2 = Column(Float, nullable=False)
-#     score_1_period = Column(Float, nullable=False)
-#     semester_exam_score = Column(Float, nullable=False)
-#     # score_detail = relationship(Score, lazy='score_detail', backref=backref('score', lazy=True))
-#(score_15_minutes_1+score_15_minutes_2+score_1_period*2+semester_exam_score*3)/7
-# #
 
 if __name__ == '__main__':
     db.create_all()

@@ -1,0 +1,80 @@
+{% extends 'layout/inherit.html' %}
+
+{% block title %}Thong ke so luong HS{% endblock %}
+
+
+{% block mycontent %}
+<br><br>
+<h4 class="text-warning text-center" >Số lượng học sinh theo từng lớp</h4>
+<br><br>
+
+<div class="row" style="width:90%">
+    <div class="col-md-8 col-xs-12">
+        <table class="table">
+            <tr>
+                <th>Mã lớp</th>
+                <th>Tên lớp</th>
+                <th>Số lượng học sinh</th>
+            </tr>
+            {% for s in stats %}
+            <tr>
+                <td>{{ s[0] }}</td>
+                <td>{{ s[1] }}</td>
+                <td>{{ s[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-4 col-xs-12">
+        <canvas id="myClassChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let labels = []
+    let data = []
+    let colors = []
+    let borderColors = []
+    let r, g, b;
+
+    {% for s in stats %}
+        labels.push('{{ s[1] }}')
+        data.push({{ s[2] }})
+
+        r = Math.random()*255
+        g = Math.random()*255
+        b = Math.random()*255
+
+        colors.push(`rgba(${r}, ${g}, ${b}, 0.2)`)
+        borderColors.push(`rgba(${r}, ${g}, ${b}, 1)`)
+    {% endfor %}
+
+    window.onload = function() {
+        const ctx = document.getElementById('myClassChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'polarArea',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Thông kê số lượng học sinh theo lớp',
+                    data: data,
+                    backgroundColor: colors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+<a class="text-success" href="{{ url_for('thongkebaocao') }}"><i class="far fa-chart-bar"></i> Xem thống kê theo môn học</a>
+<br><br>
+
+{% endblock %}
